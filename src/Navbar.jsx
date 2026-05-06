@@ -1,11 +1,13 @@
 import { useState, useRef, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 import './Navbar.css'
 
 export default function Navbar({ onMenuToggle }) {
   const [open, setOpen] = useState(false)
   const ref = useRef(null)
   const navigate = useNavigate()
+  const location = useLocation()
+  const isHome = location.pathname === '/'
 
   useEffect(() => {
     function handleClick(e) {
@@ -23,9 +25,11 @@ export default function Navbar({ onMenuToggle }) {
   return (
     <nav className="navbar">
       <div className="navbar-left">
-        <button className="hamburger" onClick={onMenuToggle} aria-label="Toggle menu">
-          <span /><span /><span />
-        </button>
+        {isHome && (
+          <button className="hamburger" onClick={onMenuToggle} aria-label="Toggle menu">
+            <span /><span /><span />
+          </button>
+        )}
         <span className="navbar-brand" onClick={() => go('/')}>Demos</span>
       </div>
       <div className="navbar-menu">
