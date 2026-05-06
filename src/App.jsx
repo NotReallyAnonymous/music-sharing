@@ -34,6 +34,9 @@ function MusicPlayer({ sidebarOpen, onSidebarClose }) {
       .then(r => r.json())
       .then(data => {
         setFolders(data)
+        const saved = localStorage.getItem('selectedFolder')
+        const valid = data.find(f => f.name === saved)
+        setSelected(valid ? saved : data[0]?.name ?? null)
         setLoading(false)
       })
       .catch(() => setLoading(false))
@@ -41,6 +44,7 @@ function MusicPlayer({ sidebarOpen, onSidebarClose }) {
 
   function selectFolder(name) {
     setSelected(name)
+    localStorage.setItem('selectedFolder', name)
     onSidebarClose()
   }
 
@@ -66,9 +70,6 @@ function MusicPlayer({ sidebarOpen, onSidebarClose }) {
       </aside>
 
       <main className="main">
-        {!selected && (
-          <div className="empty-state">Select a folder to listen</div>
-        )}
         {selectedFolder && (
           <>
             <h2 className="folder-title">{selectedFolder.name}</h2>
