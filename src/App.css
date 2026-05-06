@@ -46,9 +46,27 @@
   color: #c4c4d4;
   border-left: 3px solid transparent;
   transition: background 0.15s, color 0.15s, border-color 0.15s;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  overflow: hidden;
+}
+
+.folder-name {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.folder-date {
+  font-size: 0.72rem;
+  color: #444460;
+  transition: color 0.15s;
+}
+
+.folder-item:hover .folder-date,
+.folder-item.active .folder-date {
+  color: #6655aa;
 }
 
 .folder-item:hover {

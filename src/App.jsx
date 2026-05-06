@@ -50,7 +50,8 @@ function App() {
               className={`folder-item${selected === f.name ? ' active' : ''}`}
               onClick={() => setSelected(f.name)}
             >
-              {f.name}
+              <span className="folder-name">{f.name}</span>
+              <span className="folder-date">{formatDate(f.newestMtime)}</span>
             </li>
           ))}
         </ul>
