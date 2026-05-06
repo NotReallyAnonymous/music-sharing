@@ -85,5 +85,6 @@ export default defineConfig({
   server: {
     port: 16666,
     host: true,
+    allowedHosts: ['demos.launchbay.cc'],
   },
 })
