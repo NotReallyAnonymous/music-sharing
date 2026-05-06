@@ -73,7 +73,9 @@ function handleMusicApi(res) {
         .map(f => ({ name: f, mtime: fs.statSync(path.join(folderPath, f)).mtimeMs }))
         .sort((a, b) => b.mtime - a.mtime)
       if (!files.length) return null
-      return { name: d.name, files, newestMtime: files[0].mtime }
+      let config = { star: false, description: '', tags: [] }
+      try { config = JSON.parse(fs.readFileSync(path.join(folderPath, 'config.json'), 'utf8')) } catch { /* use defaults */ }
+      return { name: d.name, files, newestMtime: files[0].mtime, config }
     })
     .filter(Boolean)
     .sort((a, b) => b.newestMtime - a.newestMtime)

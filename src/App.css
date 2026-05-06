@@ -80,6 +80,49 @@
   color: #6655aa;
 }
 
+.folder-star {
+  color: #f0c040;
+  margin-right: 5px;
+  font-size: 0.85em;
+}
+
+.main-star {
+  font-size: 0.8em;
+  vertical-align: middle;
+  margin-right: 8px;
+}
+
+.folder-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-top: 4px;
+}
+
+.tag {
+  display: inline-block;
+  padding: 1px 8px;
+  border-radius: 999px;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: lowercase;
+  background: var(--tag-color);
+  color: #e8e8f0;
+  white-space: nowrap;
+}
+
+.folder-description {
+  font-size: 0.9rem;
+  color: #8888aa;
+  line-height: 1.6;
+  margin: -12px 0 22px;
+  padding: 14px 18px;
+  background: #1e1e2e;
+  border: 1px solid #2a2a4a;
+  border-radius: 8px;
+}
+
 /* Main content */
 .main {
   flex: 1;
