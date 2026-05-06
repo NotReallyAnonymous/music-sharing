@@ -1,4 +1,7 @@
 import { useState, useEffect } from 'react'
+import { Routes, Route } from 'react-router-dom'
+import Navbar from './Navbar.jsx'
+import CollegeCapstone from './CollegeCapstone.jsx'
 import './App.css'
 
 function formatDate(mtime) {
@@ -21,7 +24,7 @@ function AudioTrack({ folder, file }) {
   )
 }
 
-function App() {
+function MusicPlayer({ sidebarOpen, onSidebarClose }) {
   const [folders, setFolders] = useState([])
   const [selected, setSelected] = useState(null)
   const [loading, setLoading] = useState(true)
@@ -36,19 +39,24 @@ function App() {
       .catch(() => setLoading(false))
   }, [])
 
+  function selectFolder(name) {
+    setSelected(name)
+    onSidebarClose()
+  }
+
   const selectedFolder = folders.find(f => f.name === selected)
 
   return (
     <div className="layout">
-      <aside className="sidebar">
-        <div className="sidebar-header">Music</div>
+      {sidebarOpen && <div className="sidebar-overlay" onClick={onSidebarClose} />}
+      <aside className={`sidebar${sidebarOpen ? ' sidebar-open' : ''}`}>
         {loading && <div className="sidebar-loading">Loading…</div>}
         <ul className="folder-list">
           {folders.map(f => (
             <li
               key={f.name}
               className={`folder-item${selected === f.name ? ' active' : ''}`}
-              onClick={() => setSelected(f.name)}
+              onClick={() => selectFolder(f.name)}
             >
               <span className="folder-name">{f.name}</span>
               <span className="folder-date">{formatDate(f.newestMtime)}</span>
@@ -76,4 +84,21 @@ function App() {
   )
 }
 
-export default App
+export default function App() {
+  const [sidebarOpen, setSidebarOpen] = useState(false)
+
+  return (
+    <div className="app-shell">
+      <Navbar onMenuToggle={() => setSidebarOpen(o => !o)} />
+      <Routes>
+        <Route path="/" element={
+          <MusicPlayer
+            sidebarOpen={sidebarOpen}
+            onSidebarClose={() => setSidebarOpen(false)}
+          />
+        } />
+        <Route path="/projects/college-capstone" element={<CollegeCapstone />} />
+      </Routes>
+    </div>
+  )
+}
